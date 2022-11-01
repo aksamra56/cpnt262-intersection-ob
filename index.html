@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<div class="wrapper">
+    <div class="card">
+        <div class="image animate" data-animate="animImage 2s"></div>
+        <h2 class="animate" data-animate="animTitle 2s ">Profile picture 1</h2>
+        <p class="animate" data-animate="animContent 2s ">As you can...</p>
+
+    </div>
+</div>
+<div class="wrapper">
+    <div class="card">
+        <div class="image animate" data-animate="animImage 2s"></div>
+        <h2 class="animate" data-animate="animTitle 2s ">Profile picture 2</h2>
+        <p class="animate" data-animate="animContent 2s ">see more and more....</p>
+
+    </div>
+</div>
+<div class="wrapper">
+    <div class="card">
+        <div class="image animate" data-animate="animImage 2s"></div>
+        <h2 class="animate" data-animate="animTitle 2s ">Profile picture 3</h2>
+        <p class="animate" data-animate="animContent 2s ">text is being discovered....</p>
+
+    </div>
+</div>
+<div class="wrapper">
+    <div class="card">
+        <div class="image animate" data-animate="animImage 2s"></div>
+        <h2 class="animate" data-animate="animTitle 2s ">Profile picture 4</h2>
+        <p class="animate" data-animate="animContent 2s ">as you scroll down the page....</p>
+
+    </div>
+</div>
+
+<script>                          
+    const callback = (entries) => {
+       // The entries variable will contain the list of
+       // elements that you are observing. When ever 
+       // intersection occurs, you need to do forEach loop 
+       // to find which one intersected. 
+       // For this we check a flag on the element called "isIntersecting"
+        entries.forEach(
+            (entry) => {
+                if (entry.isIntersecting) {
+                    console.log("The element is intersecting >");
+                    //If intersecting then attach keyframe animation.
+                   //We do this by assigning the data attribute 
+                   //we coded in the markup to the style.animation 
+                   //of the element
+                    entry.target.style.animation = 
+                    entry.target.dataset.animate;
+                } else {
+                    //We take of the animation if not in view
+                    entry.target.style.animation="none";
+                }
+
+            }
+        );       
+    }
+
+    //1] Create a new intersectionObserver object, 
+    //which will accept a callback function as 
+    //a parameter.
+
+    let observer = new IntersectionObserver(callback);
+
+
+    //2]Select all elements that have ".animate" 
+    //class.In our case we have three 
+    //elements (.image,<p> and h<2>).
+
+    const animationItems = document.querySelectorAll('.animate');
+
+
+      //3]Loop through selected elements and add to the
+      //observer watch list.      
+
+      animationItems.forEach(item => {
+        observer.observe(item)         
+    })
+</script>
+
+  <script src="/index.js" defer></script>
+  <link rel="stylesheet" href="style.css"> 
